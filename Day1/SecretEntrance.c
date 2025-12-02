@@ -29,7 +29,7 @@ int part1(FILE* fptr) {
 int part2(FILE* fptr) {
     int spot = 50;
     int password = 0;
-    char buffer[256];   
+    char buffer[64];   
 
     while (fgets(buffer, sizeof(buffer), fptr) != NULL) {        
         char direction = buffer[0];
@@ -53,10 +53,10 @@ int part2(FILE* fptr) {
 }
 
 int main() {
-    FILE* fptr = fopen("./SecretEntranceInput.txt", "r");
+    FILE* fptr = fopen("./input.txt", "r");
     int password = part1(fptr);
     printf("%d\n", password);
-    fptr = fopen("./SecretEntranceInput.txt", "r");
+    fptr = fopen("./input.txt", "r");
     clock_t begin = clock();
     password = part2(fptr);
     clock_t end = clock();

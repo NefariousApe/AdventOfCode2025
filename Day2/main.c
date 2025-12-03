@@ -1,6 +1,3 @@
-
-
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -87,6 +84,39 @@ long part2(Range* range, int count) {
     return sum;
 }
 
+bool isRepeatingPattern(long num) {
+    char str[32];
+    sprintf(str, "%ld", num);
+    int len = strlen(str);
+    
+    for (int seqLen = 1; seqLen <= len / 2; seqLen++) {
+        if (len % seqLen != 0) continue;
+        bool matches = true;
+        for (int i = seqLen; i < len; i++) {
+            if (str[i] != str[i % seqLen]) {
+                matches = false;
+                break;
+            }
+        }
+        if (matches) { 
+            return true;
+        }
+    }
+    return false;
+}
+
+long part2String(Range* range, int count) {
+    long sum = 0;
+    for (int i = 0; i < count; i++) {
+        for (long j = range[i].start; j <= range[i].end; j++) {
+            if (isRepeatingPattern(j)) {
+                sum += j;
+            }
+        }
+    }
+    return sum;
+}
+
 
 int parseFile(FILE* fptr, Range* ranges) {
     char buffer[4096];
@@ -127,7 +157,14 @@ int main() {
     end = clock();
     time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Time spent part2: %f\n", time_spent);
-    printf("%ld\n", result);
+    printf("Part 2 %ld\n", result);
+
+    begin = clock();
+    result = part2String(ranges, count);
+    end = clock();
+    time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("Time spent part2 Regex: %f\n", time_spent);
+    printf("Part 2 string %ld\n", result);
 
     return EXIT_SUCCESS;
 }

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 int rowCount = 0;
 
@@ -105,8 +106,11 @@ int main() {
     
     int p1 = part1(file);
     printf("%d\n", p1);
-
+    clock_t start = clock();
     int p2 = part2(file);
+    clock_t end = clock();
+    double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+    printf("time %f\n", time_spent);
     printf("%d\n", p2);
     
 }

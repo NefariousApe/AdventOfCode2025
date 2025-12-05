@@ -8,21 +8,15 @@ int part1(FILE *fptr) {
     while(fgets(buffer, sizeof buffer, fptr) != NULL) {
         int i = 0;
         char digits[2];
-        while(buffer[i] != '\n' && buffer[i] != '\0') {
-            
+        while(buffer[i] != '\n' && buffer[i] != '\0') {      
             if (buffer[i] > digits[0] && buffer[i+1] != '\n' && buffer[i+1] != '\0') {
                 digits[0] = buffer[i];
-                digits[1] = 0;
-                
+                digits[1] = 0;               
             } else if (buffer[i] > digits[1]) {
-
                 digits[1] = buffer[i];
             }
-            // printf("%d ", i);
             i += 1;
         }
-        // printf("%d ", i);
-        printf("%s\n", digits);
         sum += atoi(digits);
         digits[0] = 0, digits[1] = 0;
         
@@ -32,13 +26,14 @@ int part1(FILE *fptr) {
 
 long part2(FILE *fptr) {
     char buffer[256];
+    
     long sum = 0;
     while(fgets(buffer, sizeof buffer, fptr) != NULL) {
         int i = 0;
         char digits[12];
         long length = strlen(buffer);
         while(buffer[i] != '\n' && buffer[i] != '\0') {
-            for (size_t j = 0; j < 12; j++) {
+            for (size_t j = 0; j < 12; j++) {               
                 if (buffer[i] > digits[j] && (length - i - 1) > (12 - j - 1)){
                     digits[j] = buffer[i];
                     for(size_t k = j+1; k < 12; k++) {
@@ -52,8 +47,7 @@ long part2(FILE *fptr) {
         sum += atol(digits);
         for (size_t j = 0; j < 12; j++) {
             digits[j] = 0;
-        }
-        
+        }        
     }
     return sum;
 }
@@ -62,8 +56,8 @@ long part2(FILE *fptr) {
 int main() {
 
     FILE* fptr = fopen("./input.txt", "r");
-    // int result = part1(fptr);
-    // printf("Part 1: %d\n", result);
+    int result = part1(fptr);
+    printf("Part 1: %d\n", result);
     fptr = fopen("./input.txt", "r");
     long result2 = part2(fptr);
     printf("Part d: %ld\n", result2);
